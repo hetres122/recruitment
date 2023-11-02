@@ -1,13 +1,16 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {CommonModule, NgOptimizedImage} from '@angular/common';
 import {HeaderComponent} from "./components";
+import {MatToolbarModule} from "@angular/material/toolbar";
 
 
 
 @NgModule({
   declarations: [ HeaderComponent],
   imports: [
-    CommonModule
+    CommonModule,
+    MatToolbarModule,
+    NgOptimizedImage
   ],
   exports: [ HeaderComponent]
 })
