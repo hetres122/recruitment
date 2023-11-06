@@ -1,11 +1,16 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {MatButtonModule} from "@angular/material/button";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {NgIf} from "@angular/common";
-import {PasswordValidationErrors} from "../../interface/password-validation";
+import {Observable} from "rxjs";
+
+import {PasswordValidationErrors} from "../../../interface/password-validation";
 import {IconComponent} from "../../atoms";
+import {PostsService} from "../../../core/services/posts.service";
+
+
 
 
 @Component({
@@ -23,9 +28,13 @@ import {IconComponent} from "../../atoms";
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-  public registerForm!: FormGroup;
+  @Output() onChangeToDefaultTab = new EventEmitter<null>();
 
-  constructor(private formBuilder: FormBuilder) {
+  public registerForm!: FormGroup;
+  public textMessage: string = '';
+  public isError: boolean = false;
+
+  constructor(private formBuilder: FormBuilder, private postService: PostsService) {
   }
 
   get email(): FormControl {
@@ -76,5 +85,25 @@ export class RegisterComponent implements OnInit {
       const error = password.value === confirmPassword.value ? null : {passwordMismatch: true};
       confirmPassword.setErrors(error)
     }
+  }
+
+  public onSubmit() {
+    let authObs: Observable<any>;
+
+    authObs = this.postService.registerPost(this.registerForm.value);
+
+    authObs.subscribe(
+      response => {
+        console.log('Response: ', response);
+        this.isError = false;
+        this.registerForm.reset();
+        this.onChangeToDefaultTab.emit();
+      },
+      error => {
+        this.isError = true;
+        this.textMessage = `Błąd rejestracji`;
+        console.error('Error: ', error);
+      }
+    );
   }
 }

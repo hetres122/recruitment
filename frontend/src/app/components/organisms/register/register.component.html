@@ -1,4 +1,5 @@
-<form class="form" [formGroup]="registerForm">
+<form class="form" [formGroup]="registerForm" (submit)="onSubmit()">
+  <p *ngIf="isError" class="error" >{{textMessage}}</p>
   <mat-form-field>
     <mat-label>login/e-mail</mat-label>
     <input type="email" matInput class="input" placeholder="test@test.com" formControlName="email">

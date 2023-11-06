@@ -1,4 +1,8 @@
-<form class="form" [formGroup]="loginForm">
+<form class="form" [formGroup]="loginForm" (submit)="onSubmit()">
+
+  <p *ngIf="showMessage" [ngClass]="{'error': isError, 'success': !isError}">{{textMessage}}</p>
+
+
   <mat-form-field>
     <mat-label>hasło</mat-label>
     <input type="password" matInput class="input" formControlName="password">
@@ -20,5 +24,5 @@
     </mat-error>
   </mat-form-field>
   <a routerLink="/reset-password" class="link">zresetuj hasło</a>
-  <button mat-raised-button color="primary" [disabled]="!loginForm.valid">Zaloguj się</button>
+  <button mat-raised-button color="primary" [disabled]="!loginForm.valid" type="submit">Zaloguj się</button>
 </form>

@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
-import {MatTabsModule} from "@angular/material/tabs";
-import {RegisterComponent} from "../../components/organisms/register/register.component";
-import {LoginComponent} from "../../components/organisms/login/login.component";
+import {Component, ViewChild} from '@angular/core';
+import {MatTabGroup, MatTabsModule} from "@angular/material/tabs";
+
+import {RegisterComponent} from "@organisms/register/register.component";
+import {LoginComponent} from "@organisms/login/login.component";
 
 @Component({
   standalone: true,
@@ -15,5 +16,9 @@ import {LoginComponent} from "../../components/organisms/login/login.component";
   styleUrls: ['./auth-page.component.scss']
 })
 export class AuthPageComponent {
+  @ViewChild('matTabGroup') matTabGroup!: MatTabGroup;
+  public changeToLoginTab(): void {
+    this.matTabGroup.selectedIndex = 0;
+  }
 
 }

@@ -1,4 +1,4 @@
-.form{
+.form {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -6,11 +6,21 @@
   overflow: hidden;
   padding-bottom: 50px;
 }
-.input{
+
+.input {
   width: 100%;
 }
+
 .link {
   margin-left: auto;
   margin-bottom: 10px;
+}
+
+.success {
+  color: green;
+}
+
+.error {
+  color: red
 }
 
