@@ -1,12 +1,6 @@
-.form {
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  padding: 20px;
-}
-
-.wrapper {
-  height: 19px;
+.box-message {
+  height: 20px;
+  margin-bottom: 28px;
 }
 
 .success {
@@ -21,9 +15,4 @@
   margin-left: auto;
   margin-bottom: 10px;
   text-decoration: none;
-}
-
-.button {
-  width: 50%;
-  margin: 40px auto 0 auto;
 }
