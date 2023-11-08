@@ -11,24 +11,12 @@
   <app-input></app-input>
 
   <a routerLink="/reset-password" class="link">zresetuj hasło</a>
-  <div class="wrapper">
+  <div class="box-message">
     <p *ngIf="showMessage" [ngClass]="{'error': isError, 'success': !isError}">
       {{ responseMessage }}
     </p>
   </div>
-
-  <button
-    mat-raised-button
-    color="primary"
-    [disabled]="!loginForm.valid"
-    type="submit"
-    class="button"
-  >
-    <ng-container *ngIf="isLoading; else loginText">
-      <mat-spinner [diameter]="20" color="warn"></mat-spinner>
-    </ng-container>
-    <ng-template #loginText>Zaloguj się</ng-template>
-  </button>
+  <app-button-submit [isLoading]="isLoading" [isValid]="loginForm.valid" [value]="'Zaloguj się'"></app-button-submit>
 </form>
 
 

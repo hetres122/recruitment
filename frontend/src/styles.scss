@@ -8,3 +8,26 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+.wrapper {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: auto;
+  padding-top: 20px;
+}
+@media (min-width: 733px) {
+  .wrapper {
+    width: 40%;
+  }
+}
+@media (min-width: 1000px) {
+  .wrapper {
+    width: 30%;
+  }
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 20px;
+}

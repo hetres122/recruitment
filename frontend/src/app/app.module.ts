@@ -8,7 +8,6 @@ import {MatCardModule} from "@angular/material/card";
 
 import {CoreModule} from "./core/core.module";
 import { AppComponent } from './app.component';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,7 +18,7 @@ import { AppComponent } from './app.component';
     BrowserAnimationsModule,
     CoreModule,
     HttpClientModule,
-    MatCardModule
+    MatCardModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

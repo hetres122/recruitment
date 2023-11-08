@@ -14,7 +14,7 @@ import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
-import {EmailFormComponent, InputComponent, InputIconComponent} from "../../components/atoms";
+import {ButtonSubmitComponent, EmailFormComponent, InputComponent, InputIconComponent} from "../../components/atoms";
 import {PostsService} from "../../core/services/posts.service";
 
 @Component({
@@ -32,6 +32,7 @@ import {PostsService} from "../../core/services/posts.service";
     RouterLink,
     EmailFormComponent,
     InputComponent,
+    ButtonSubmitComponent,
   ],
   styleUrls: ["./password-reset-page.component.scss"],
 })

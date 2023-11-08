@@ -48,12 +48,5 @@
       Hasła są rożne
     </mat-error>
   </mat-form-field>
-
-  <button mat-raised-button color="primary" class="button" [disabled]="registerForm.invalid">
-    <ng-container *ngIf="isLoading; else loginText">
-      <mat-spinner [diameter]="20" color="warn"></mat-spinner>
-    </ng-container>
-    <ng-template #loginText>Załóż konto</ng-template>
-  </button>
-
+  <app-button-submit [isLoading]="isLoading" [isValid]="registerForm.valid" [value]="'Załóż konto'"></app-button-submit>
 </form>

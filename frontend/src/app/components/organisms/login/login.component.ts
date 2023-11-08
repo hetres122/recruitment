@@ -14,8 +14,7 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
-import {InputIconComponent} from "../../atoms";
-import {InputComponent} from "../../atoms";
+import {ButtonSubmitComponent, InputComponent} from "../../atoms";
 import {PostsService} from "../../../core/services/posts.service";
 
 @Component({
@@ -29,9 +28,9 @@ import {PostsService} from "../../../core/services/posts.service";
     RouterLink,
     CommonModule,
     MatIconModule,
-    InputIconComponent,
     InputComponent,
     MatProgressSpinnerModule,
+    ButtonSubmitComponent,
   ],
   styleUrls: ["./login.component.scss"],
 

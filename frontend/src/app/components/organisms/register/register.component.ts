@@ -14,7 +14,7 @@ import {MatInputModule} from "@angular/material/input";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 import {PasswordValidationErrors} from "../../../interface/password-validation";
-import {EmailFormComponent, InputComponent, InputIconComponent} from "../../atoms";
+import {ButtonSubmitComponent, EmailFormComponent, InputComponent, InputIconComponent} from "../../atoms";
 import {PostsService} from "../../../core/services/posts.service";
 
 @Component({
@@ -31,6 +31,7 @@ import {PostsService} from "../../../core/services/posts.service";
     MatProgressSpinnerModule,
     EmailFormComponent,
     InputComponent,
+    ButtonSubmitComponent,
   ],
   styleUrls: ["./register.component.scss"],
 })
