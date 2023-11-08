@@ -1,67 +1,107 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, inject, OnInit, Output} from "@angular/core";
+import {CommonModule} from "@angular/common";
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from "@angular/forms";
+
 import {MatButtonModule} from "@angular/material/button";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
-import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
-import {NgIf} from "@angular/common";
-import {Observable} from "rxjs";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 import {PasswordValidationErrors} from "../../../interface/password-validation";
-import {IconComponent} from "../../atoms";
+import {EmailFormComponent, InputComponent, InputIconComponent} from "../../atoms";
 import {PostsService} from "../../../core/services/posts.service";
-
-
-
 
 @Component({
   standalone: true,
-  selector: 'app-register',
-  templateUrl: './register.component.html',
+  selector: "app-register",
+  templateUrl: "./register.component.html",
   imports: [
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
     ReactiveFormsModule,
-    NgIf,
-    IconComponent
+    CommonModule,
+    InputIconComponent,
+    MatProgressSpinnerModule,
+    EmailFormComponent,
+    InputComponent,
   ],
-  styleUrls: ['./register.component.scss']
+  styleUrls: ["./register.component.scss"],
 })
 export class RegisterComponent implements OnInit {
   @Output() onChangeToDefaultTab = new EventEmitter<null>();
 
   public registerForm!: FormGroup;
-  public textMessage: string = '';
+  public textMessage: string = "";
   public isError: boolean = false;
+  public isLoading: boolean = false;
 
-  constructor(private formBuilder: FormBuilder, private postService: PostsService) {
-  }
+  private formBuilder = inject(FormBuilder);
+  private postService = inject(PostsService);
 
   get email(): FormControl {
-    return this.registerForm.get('email') as FormControl;
+    return this.registerForm.get("emailGroup.email") as FormControl;
   }
 
   get password(): FormControl {
-    return this.registerForm.get('password') as FormControl;
+    return this.registerForm.get("password") as FormControl;
   }
 
   get confirmPassword(): FormControl {
-    return this.registerForm.get('confirmPassword') as FormControl;
+    return this.registerForm.get("confirmPassword") as FormControl;
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.setRegisterFormControls();
   }
 
-  private setRegisterFormControls() {
-    this.registerForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(8), this.passwordValidator]],
-      confirmPassword: ['', [Validators.required]]
-    }, {validators: this.passwordMatchValidator})
+  public onSubmit(): void {
+    const email = this.email.value.trim();
+    const password = this.password.value.trim();
+
+    this.isLoading = true;
+    this.postService.register({email, password}).subscribe({
+      next: () => {
+        this.isError = false;
+        this.onChangeToDefaultTab.emit();
+      },
+      error: () => {
+        this.isLoading = false;
+        this.isError = true;
+        this.textMessage = "Błąd rejestracji";
+      },
+      complete: () => {
+        this.resetRegisterForm();
+        this.isLoading = false;
+      },
+    });
   }
 
-  private passwordValidator(control: FormControl) {
+  private setRegisterFormControls(): void {
+    this.registerForm = this.formBuilder.group({
+        emailGroup: this.formBuilder.group({
+          email: ['', [Validators.required, Validators.email]],
+        }),
+        password: ["",
+          [
+            Validators.required,
+            Validators.minLength(8),
+            this.passwordValidator,
+          ],
+        ],
+        confirmPassword: ["", [Validators.required]],
+      },
+      {validators: this.passwordMatchValidator}
+    );
+  }
+
+  private passwordValidator(control: FormControl): PasswordValidationErrors {
     const {value} = control;
 
     const hasUpperCase = /[A-Z]/.test(value);
@@ -70,40 +110,28 @@ export class RegisterComponent implements OnInit {
 
     const errors: PasswordValidationErrors = {};
 
-    !hasUpperCase && (errors['missingUpperCase'] = true);
-    !hasLowerCase && (errors['missingLowerCase'] = true);
-    !hasDigit && (errors['missingDigit'] = true);
+    !hasUpperCase && (errors["missingUpperCase"] = true);
+    !hasLowerCase && (errors["missingLowerCase"] = true);
+    !hasDigit && (errors["missingDigit"] = true);
 
-    return hasUpperCase || hasLowerCase || hasDigit ? errors : null;
+    return errors;
   }
 
-  private passwordMatchValidator(formGroup: FormGroup) {
-    const password = formGroup.get('password');
-    const confirmPassword = formGroup.get('confirmPassword');
+  private passwordMatchValidator(formGroup: FormGroup): void {
+    const password = formGroup.get("password");
+    const confirmPassword = formGroup.get("confirmPassword");
 
     if (password && confirmPassword) {
-      const error = password.value === confirmPassword.value ? null : {passwordMismatch: true};
-      confirmPassword.setErrors(error)
+      const error =
+        password.value === confirmPassword.value ? null : {passwordMismatch: true};
+      confirmPassword.setErrors(error);
     }
   }
 
-  public onSubmit() {
-    let authObs: Observable<any>;
-
-    authObs = this.postService.registerPost(this.registerForm.value);
-
-    authObs.subscribe(
-      response => {
-        console.log('Response: ', response);
-        this.isError = false;
-        this.registerForm.reset();
-        this.onChangeToDefaultTab.emit();
-      },
-      error => {
-        this.isError = true;
-        this.textMessage = `Błąd rejestracji`;
-        console.error('Error: ', error);
-      }
-    );
+  private resetRegisterForm(): void {
+    this.registerForm.reset();
+    Object.keys(this.registerForm.controls).forEach(key => {
+      this.registerForm.get(key)?.setErrors(null);
+    });
   }
 }

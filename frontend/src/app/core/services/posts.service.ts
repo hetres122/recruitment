@@ -1,35 +1,44 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {Observable, Subject} from "rxjs";
+import {inject, Injectable} from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { Observable } from "rxjs";
 
-import {environment} from "../../../environments/environment";
+import { environment } from "../../../environments/environment";
 
 interface Post {
   email: string;
-  password: string;
+  password?: string;
+}
+
+interface ApiResponseModel {
+  message?: string;
+  email?: string;
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class PostsService {
-  error = new Subject<string>();
+  private http = inject(HttpClient);
+  private readonly API_URL = environment.apiUrl;
 
-  constructor(private http: HttpClient) {
+  auth(auth: Post): Observable<ApiResponseModel> {
+    const postData: Post = { email: auth.email, password: auth.password };
+    const url = `${this.API_URL}auth/login`;
+
+    return this.http.post<ApiResponseModel>(url, postData);
   }
 
-  authPost(auth: Post): Observable<any> {
-    const postData: Post = {email: auth.email, password: auth.password};
-    return this.http.post(environment.loginUrl, postData);
+  register({ email, password }: Post): Observable<ApiResponseModel> {
+    const postData: Post = { email, password };
+    const url = `${this.API_URL}users`;
+
+    return this.http.post<ApiResponseModel>(url, postData);
   }
 
-  registerPost(auth: Post): Observable<any> {
-    const postData: Post = {email: auth.email, password: auth.password};
-    return this.http.post(environment.registerUrl, postData);
-  }
+  resetPassword({ email }: Post): Observable<ApiResponseModel> {
+    const postData: Post = { email };
+    const url = `${this.API_URL}users/resetPassword`
 
-  resetPost(auth: Post): Observable<any> {
-    const postData: Post = {email: auth.email, password: auth.password};
-    return this.http.post(environment.resetUrl, postData);
+    return this.http.post<ApiResponseModel>(url, postData);
   }
 }

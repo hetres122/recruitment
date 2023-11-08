@@ -5,20 +5,16 @@ import {NgIf} from "@angular/common";
 
 @Component({
   standalone: true,
-  selector: 'app-icon',
-  templateUrl: './icon.component.html',
+  selector: 'app-input-icon',
+  templateUrl: './input-icon.component.html',
   imports: [
     MatFormFieldModule,
     MatIconModule,
     NgIf
   ],
-  styleUrls: ['./icon.component.scss']
+  styleUrls: ['./input-icon.component.scss']
 })
-
-export class IconComponent{
-  @Input()  public isInputValid!: boolean | undefined;
-  @Input()  public isTouched!: boolean | undefined;
-  constructor() {
-  }
-
+export class InputIconComponent {
+  @Input({ required: true })  public isInputValid!: boolean;
+  @Input({ required: true })  public isTouched!: boolean;
 }

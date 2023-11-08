@@ -1,2 +1,3 @@
 export * from './input/input.component';
-export * from './icon/icon.component';
+export * from './input-icon/input-icon.component';
+export * from './email-form/email-form.component';

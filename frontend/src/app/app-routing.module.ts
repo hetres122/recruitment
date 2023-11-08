@@ -5,10 +5,12 @@ const routes: Routes = [
   {
     path: 'auth',
     loadComponent: () => import('./pages/auth-page/auth-page.component').then(c => c.AuthPageComponent),
+    title: 'Autoryzacja'
   },
   {
     path: 'reset-password',
-    loadComponent: () => import('./pages/password-reset-page/password-reset-page.component').then(c => c.PasswordResetPageComponent)
+    loadComponent: () => import('./pages/password-reset-page/password-reset-page.component').then(c => c.PasswordResetPageComponent),
+    title: 'Reset Hasła'
   },
   {
     path: '',

@@ -17,8 +17,8 @@ import {LoginComponent} from "@organisms/login/login.component";
 })
 export class AuthPageComponent {
   @ViewChild('matTabGroup') matTabGroup!: MatTabGroup;
+
   public changeToLoginTab(): void {
     this.matTabGroup.selectedIndex = 0;
   }
-
 }
