@@ -6,14 +6,14 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 @Component({
   standalone: true,
-  selector: 'app-button-submit',
-  templateUrl: './button-submit.component.html',
+  selector: "app-button-submit",
+  templateUrl: "./button-submit.component.html",
   imports: [
     MatButtonModule,
     MatProgressSpinnerModule,
-    CommonModule
+    CommonModule,
   ],
-  styleUrls: ['./button-submit.component.scss']
+  styleUrls: ["./button-submit.component.scss"]
 })
 export class ButtonSubmitComponent {
   @Input() public isValid!: boolean;

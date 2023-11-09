@@ -4,15 +4,12 @@ import { AppRoutingModule } from "./app-routing.module";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import {MatCardModule} from "@angular/material/card";
 
-import {CoreModule} from "./core/core.module";
-
-import { AppComponent } from "./app.component";
-import {HttpClient, HttpClientModule} from "@angular/common/http";
-
 import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
+import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 
-
+import { AppComponent } from "./app.component";
+import {CoreModule} from "@core/core.module";
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);

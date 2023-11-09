@@ -10,15 +10,16 @@ import {
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 
-import {InputIconComponent} from "../input-icon/input-icon.component";
 import {TranslateModule} from "@ngx-translate/core";
 
+import {InputIconComponent} from "@components/atoms/input-icon/input-icon.component";
+
 @Component({
-  selector: 'app-input',
+  selector: "app-input",
   standalone: true,
   imports: [CommonModule, InputIconComponent, MatFormFieldModule, MatInputModule, ReactiveFormsModule, TranslateModule],
-  templateUrl: './input.component.html',
-  styleUrls: ['./input.component.scss']
+  templateUrl: "./input.component.html",
+  styleUrls: ["./input.component.scss"]
 })
 export class InputComponent implements OnInit {
   public emailForm!: FormGroup;
@@ -26,10 +27,10 @@ export class InputComponent implements OnInit {
   private controlContainer = inject(ControlContainer);
 
   ngOnInit(): void {
-    this.emailForm = this.controlContainer.control?.get('emailGroup') as FormGroup;
+    this.emailForm = this.controlContainer.control?.get("emailGroup") as FormGroup;
   }
 
   get email(): FormControl {
-    return this.emailForm.get('email') as FormControl;
+    return this.emailForm.get("email") as FormControl;
   }
 }

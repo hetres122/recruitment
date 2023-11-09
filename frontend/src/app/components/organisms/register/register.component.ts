@@ -14,15 +14,15 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
-import {PasswordValidationOptionalErrors} from "../../../interface/password-validation";
-import {ButtonSubmitComponent, InputComponent, InputIconComponent} from "../../atoms";
-import {PostsService} from "../../../core/services/posts.service";
+import {PasswordValidationOptionalErrors} from "@interface/password-validation";
+import {ButtonSubmitComponent, InputComponent, InputIconComponent} from "@components/atoms";
+import {PostsService} from "@core/services";
 
 
 @Component({
   standalone: true,
-  selector: 'app-register',
-  templateUrl: './register.component.html',
+  selector: "app-register",
+  templateUrl: "./register.component.html",
   imports: [
     MatButtonModule,
     MatFormFieldModule,
@@ -35,7 +35,7 @@ import {PostsService} from "../../../core/services/posts.service";
     ButtonSubmitComponent,
     TranslateModule,
   ],
-  styleUrls: ['./register.component.scss'],
+  styleUrls: ["./register.component.scss"],
 })
 export class RegisterComponent implements OnInit {
   @Output() onChangeToDefaultTab = new EventEmitter<null>();

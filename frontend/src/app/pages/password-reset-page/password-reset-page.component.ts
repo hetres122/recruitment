@@ -15,13 +15,13 @@ import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
-import {ButtonSubmitComponent, InputComponent, InputIconComponent} from "../../components/atoms";
-import {PostsService} from "../../core/services/posts.service";
+import {ButtonSubmitComponent, InputComponent, InputIconComponent} from "@components/atoms";
+import {PostsService} from "@core/services";
 
 @Component({
   standalone: true,
-  selector: 'app-password-reset-page',
-  templateUrl: './password-reset-page.component.html',
+  selector: "app-password-reset-page",
+  templateUrl: "./password-reset-page.component.html",
     imports: [
         MatFormFieldModule,
         MatInputModule,
@@ -35,7 +35,7 @@ import {PostsService} from "../../core/services/posts.service";
         ButtonSubmitComponent,
         TranslateModule,
     ],
-  styleUrls: ['./password-reset-page.component.scss'],
+  styleUrls: ["./password-reset-page.component.scss"],
 })
 export class PasswordResetPageComponent implements OnInit {
   public resetForm!: FormGroup;

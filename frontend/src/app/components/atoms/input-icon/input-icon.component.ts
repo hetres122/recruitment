@@ -5,14 +5,14 @@ import {NgIf} from "@angular/common";
 
 @Component({
   standalone: true,
-  selector: 'app-input-icon',
-  templateUrl: './input-icon.component.html',
+  selector: "app-input-icon",
+  templateUrl: "./input-icon.component.html",
   imports: [
     MatFormFieldModule,
     MatIconModule,
     NgIf
   ],
-  styleUrls: ['./input-icon.component.scss']
+  styleUrls: ["./input-icon.component.scss"]
 })
 export class InputIconComponent {
   @Input({ required: true })  public isInputValid!: boolean;

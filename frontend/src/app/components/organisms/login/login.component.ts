@@ -15,14 +15,14 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
-import {ButtonSubmitComponent, InputComponent} from "../../atoms";
-import {PostsService} from "../../../core/services/posts.service";
+import {ButtonSubmitComponent, InputComponent} from "@components/atoms";
+import {PostsService} from "@core/services";
 
 
 @Component({
   standalone: true,
-  selector: 'app-login',
-  templateUrl: './login.component.html',
+  selector: "app-login",
+  templateUrl: "./login.component.html",
   imports: [
     MatInputModule,
     MatButtonModule,
@@ -35,7 +35,7 @@ import {PostsService} from "../../../core/services/posts.service";
     ButtonSubmitComponent,
     TranslateModule,
   ],
-  styleUrls: ['./login.component.scss'],
+  styleUrls: ["./login.component.scss"],
 
 })
 export class LoginComponent implements OnInit {
