@@ -1,5 +1,5 @@
-import {Component, inject, OnInit} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import {Component, inject, OnInit} from "@angular/core";
+import {CommonModule} from "@angular/common";
 import {
   ControlContainer,
   FormControl,
@@ -11,11 +11,12 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 
 import {InputIconComponent} from "../input-icon/input-icon.component";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-input',
   standalone: true,
-  imports: [CommonModule, InputIconComponent, MatFormFieldModule, MatInputModule, ReactiveFormsModule],
+  imports: [CommonModule, InputIconComponent, MatFormFieldModule, MatInputModule, ReactiveFormsModule, TranslateModule],
   templateUrl: './input.component.html',
   styleUrls: ['./input.component.scss']
 })
@@ -28,8 +29,7 @@ export class InputComponent implements OnInit {
     this.emailForm = this.controlContainer.control?.get('emailGroup') as FormGroup;
   }
 
-  get email() {
+  get email(): FormControl {
     return this.emailForm.get('email') as FormControl;
   }
-
 }

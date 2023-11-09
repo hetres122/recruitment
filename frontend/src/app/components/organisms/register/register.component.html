@@ -4,7 +4,7 @@
   <app-input></app-input>
 
   <mat-form-field>
-    <mat-label>hasło</mat-label>
+    <mat-label>{{ 'Password' | translate }}</mat-label>
     <input type="password" matInput formControlName="password"/>
     <app-input-icon
       matSuffix
@@ -12,24 +12,24 @@
       [isTouched]="password.touched">
     </app-input-icon>
     <mat-error *ngIf="password.hasError('required') && password.dirty">
-      Hasło jest wymagane
+      {{ 'RequiredPassword' | translate }}
     </mat-error>
     <mat-error *ngIf="password.hasError('missingUpperCase')">
-      Brakuje dużej litery
+      {{ 'MissingUpperCase' | translate }}
     </mat-error>
     <mat-error *ngIf="password.hasError('missingLowerCase')">
-      Brakuje małej litery
+      {{ 'MissingLowerCase' | translate }}
     </mat-error>
     <mat-error *ngIf="password.hasError('missingDigit')">
-      Brakuje cyfry
+      {{ 'MissingDigit' | translate }}
     </mat-error>
     <mat-error *ngIf="password.hasError('minlength')">
-      Hasło musi mieć 8 znaków
+      {{ 'Minlength' | translate }}
     </mat-error>
   </mat-form-field>
 
   <mat-form-field>
-    <mat-label>hasło</mat-label>
+    <mat-label>{{ 'Password' | translate }}</mat-label>
     <input
       type="password"
       matInput
@@ -42,11 +42,13 @@
     >
     </app-input-icon>
     <mat-error *ngIf="confirmPassword.hasError('required')">
-      Hasło jest wymagane
+      {{ 'RequiredPassword' | translate }}
     </mat-error>
     <mat-error *ngIf="confirmPassword.hasError('passwordMismatch') ">
-      Hasła są rożne
+      {{ 'PasswordMismatch' | translate }}
     </mat-error>
   </mat-form-field>
-  <app-button-submit [isLoading]="isLoading" [isValid]="registerForm.valid" [value]="'Załóż konto'"></app-button-submit>
+  <app-button-submit [isLoading]="isLoading" [isValid]="registerForm.valid">
+    {{ 'RegisterButton' | translate }}
+  </app-button-submit>
 </form>

@@ -1,0 +1,22 @@
+{
+  "Password": "Password",
+  "RequiredPassword": "Password is required",
+  "ResetPassword": "Reset Password",
+  "LoginButton": "Log in",
+  "Return": "Return",
+  "Send": "Send",
+  "Login": "Log in",
+  "Register": "Register",
+  "LogoAlt": "GPS Guardian Logo",
+  "MissingUpperCase": "Missing uppercase letter",
+  "MissingLowerCase": "Missing lowercase letter",
+  "MissingDigit": "Missing digit",
+  "Minlength": "Password must be at least 8 characters long",
+  "ConfirmPassword": "Confirm password",
+  "PasswordMismatch": "Passwords do not match",
+  "RegisterButton": "Register",
+  "LabelEmail": "Login/Email",
+  "Placeholder": "test@test.com",
+  "InvalidEmail": "Invalid email address",
+  "RequiredEmail": "Email is required"
+}

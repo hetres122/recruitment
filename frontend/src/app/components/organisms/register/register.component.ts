@@ -7,20 +7,22 @@ import {
   ReactiveFormsModule,
   Validators,
 } from "@angular/forms";
+import {TranslateModule} from "@ngx-translate/core";
 
 import {MatButtonModule} from "@angular/material/button";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
-import {PasswordValidationErrors} from "../../../interface/password-validation";
-import {ButtonSubmitComponent, EmailFormComponent, InputComponent, InputIconComponent} from "../../atoms";
+import {PasswordValidationOptionalErrors} from "../../../interface/password-validation";
+import {ButtonSubmitComponent, InputComponent, InputIconComponent} from "../../atoms";
 import {PostsService} from "../../../core/services/posts.service";
+
 
 @Component({
   standalone: true,
-  selector: "app-register",
-  templateUrl: "./register.component.html",
+  selector: 'app-register',
+  templateUrl: './register.component.html',
   imports: [
     MatButtonModule,
     MatFormFieldModule,
@@ -29,11 +31,11 @@ import {PostsService} from "../../../core/services/posts.service";
     CommonModule,
     InputIconComponent,
     MatProgressSpinnerModule,
-    EmailFormComponent,
     InputComponent,
     ButtonSubmitComponent,
+    TranslateModule,
   ],
-  styleUrls: ["./register.component.scss"],
+  styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent implements OnInit {
   @Output() onChangeToDefaultTab = new EventEmitter<null>();
@@ -102,14 +104,14 @@ export class RegisterComponent implements OnInit {
     );
   }
 
-  private passwordValidator(control: FormControl): PasswordValidationErrors {
+  private passwordValidator(control: FormControl): PasswordValidationOptionalErrors {
     const {value} = control;
 
     const hasUpperCase = /[A-Z]/.test(value);
     const hasLowerCase = /[a-z]/.test(value);
     const hasDigit = /\d/.test(value);
 
-    const errors: PasswordValidationErrors = {};
+    const errors: PasswordValidationOptionalErrors = {};
 
     !hasUpperCase && (errors["missingUpperCase"] = true);
     !hasLowerCase && (errors["missingLowerCase"] = true);
@@ -123,8 +125,7 @@ export class RegisterComponent implements OnInit {
     const confirmPassword = formGroup.get("confirmPassword");
 
     if (password && confirmPassword) {
-      const error =
-        password.value === confirmPassword.value ? null : {passwordMismatch: true};
+      const error = password.value === confirmPassword.value ? null : {passwordMismatch: true};
       confirmPassword.setErrors(error);
     }
   }

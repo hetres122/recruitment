@@ -8,33 +8,34 @@ import {
 } from "@angular/forms";
 import {CommonModule} from "@angular/common";
 import {RouterLink} from "@angular/router";
+import {TranslateModule} from "@ngx-translate/core";
 
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
-import {ButtonSubmitComponent, EmailFormComponent, InputComponent, InputIconComponent} from "../../components/atoms";
+import {ButtonSubmitComponent, InputComponent, InputIconComponent} from "../../components/atoms";
 import {PostsService} from "../../core/services/posts.service";
 
 @Component({
   standalone: true,
-  selector: "app-password-reset-page",
-  templateUrl: "./password-reset-page.component.html",
-  imports: [
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    InputIconComponent,
-    CommonModule,
-    ReactiveFormsModule,
-    MatProgressSpinnerModule,
-    RouterLink,
-    EmailFormComponent,
-    InputComponent,
-    ButtonSubmitComponent,
-  ],
-  styleUrls: ["./password-reset-page.component.scss"],
+  selector: 'app-password-reset-page',
+  templateUrl: './password-reset-page.component.html',
+    imports: [
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        InputIconComponent,
+        CommonModule,
+        ReactiveFormsModule,
+        MatProgressSpinnerModule,
+        RouterLink,
+        InputComponent,
+        ButtonSubmitComponent,
+        TranslateModule,
+    ],
+  styleUrls: ['./password-reset-page.component.scss'],
 })
 export class PasswordResetPageComponent implements OnInit {
   public resetForm!: FormGroup;
@@ -58,12 +59,12 @@ export class PasswordResetPageComponent implements OnInit {
     const email = this.email.value.trim();
     this.isLoading = true;
 
-    this.postService.resetPassword({email}).subscribe({
+    this.postService.resetPassword({ email }).subscribe({
       next: () => {
         this.responseMessage = "Email został wysłany";
         this.isError = false;
         this.resetForm.reset();
-        this.email?.setErrors(null);
+        this.email.setErrors(null);
       },
       error: () => {
         this.isError = true;

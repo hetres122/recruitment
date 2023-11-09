@@ -1,44 +1,59 @@
 import {inject, Injectable} from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { Observable } from "rxjs";
+import {HttpClient} from "@angular/common/http";
+import {Observable} from "rxjs";
 
-import { environment } from "../../../environments/environment";
+import {environment} from "../../../environments/environment";
 
-interface Post {
+interface BaseAuthRequest {
   email: string;
-  password?: string;
 }
 
-interface ApiResponseModel {
-  message?: string;
-  email?: string;
+interface RegisterRequest extends BaseAuthRequest {
+  password: string;
 }
+
+interface ResetPasswordRequest extends BaseAuthRequest {
+}
+
+interface LoginRequest extends BaseAuthRequest {
+  password: string;
+}
+
+interface ApiBaseResponse {
+  email: string;
+}
+
+interface ApiSuccessResponse extends ApiBaseResponse {
+}
+
+interface ApiErrorResponse extends ApiBaseResponse {
+  message: string
+}
+
+type ApiResponse = ApiSuccessResponse | ApiErrorResponse;
 
 @Injectable({
   providedIn: "root",
 })
 export class PostsService {
   private http = inject(HttpClient);
-  private readonly API_URL = environment.apiUrl;
+  private readonly API_URL: URL = new URL(environment.apiUrl);
 
-  auth(auth: Post): Observable<ApiResponseModel> {
-    const postData: Post = { email: auth.email, password: auth.password };
+  login(loginRequest: LoginRequest): Observable<ApiResponse> {
     const url = `${this.API_URL}auth/login`;
 
-    return this.http.post<ApiResponseModel>(url, postData);
+    return this.http.post<ApiResponse>(url, loginRequest);
   }
 
-  register({ email, password }: Post): Observable<ApiResponseModel> {
-    const postData: Post = { email, password };
+  register(registerRequest: RegisterRequest): Observable<ApiResponse> {
     const url = `${this.API_URL}users`;
 
-    return this.http.post<ApiResponseModel>(url, postData);
+    return this.http.post<ApiResponse>(url, registerRequest);
   }
 
-  resetPassword({ email }: Post): Observable<ApiResponseModel> {
-    const postData: Post = { email };
+  resetPassword(resetPasswordRequest: ResetPasswordRequest): Observable<ApiResponse> {
     const url = `${this.API_URL}users/resetPassword`
 
-    return this.http.post<ApiResponseModel>(url, postData);
+    return this.http.post<ApiResponse>(url, resetPasswordRequest);
   }
 }

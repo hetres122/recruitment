@@ -8,5 +8,7 @@
   <ng-container *ngIf="isLoading; else loginText">
     <mat-spinner [diameter]="20" color="warn"></mat-spinner>
   </ng-container>
-  <ng-template #loginText>{{ value }}</ng-template>
+  <ng-template #loginText>
+    <ng-content></ng-content>
+  </ng-template>
 </button>

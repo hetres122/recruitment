@@ -8,6 +8,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from "@angular/forms";
+import {TranslateModule} from "@ngx-translate/core";
 
 import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
@@ -17,10 +18,11 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {ButtonSubmitComponent, InputComponent} from "../../atoms";
 import {PostsService} from "../../../core/services/posts.service";
 
+
 @Component({
   standalone: true,
-  selector: "app-login",
-  templateUrl: "./login.component.html",
+  selector: 'app-login',
+  templateUrl: './login.component.html',
   imports: [
     MatInputModule,
     MatButtonModule,
@@ -31,8 +33,9 @@ import {PostsService} from "../../../core/services/posts.service";
     InputComponent,
     MatProgressSpinnerModule,
     ButtonSubmitComponent,
+    TranslateModule,
   ],
-  styleUrls: ["./login.component.scss"],
+  styleUrls: ['./login.component.scss'],
 
 })
 export class LoginComponent implements OnInit {
@@ -62,10 +65,11 @@ export class LoginComponent implements OnInit {
     const password = this.password.value.trim();
     this.isLoading = true;
 
-    this.postService.auth({email, password}).subscribe({
+
+    this.postService.login({email, password}).subscribe({
       next: (response) => {
         this.isError = false;
-        this.responseMessage = `Udało się zalogować na konto: ${response.email}`;
+        this.responseMessage = `Zostałeś zalogowany: ${response.email}`;
       },
       error: () => {
         this.isError = true;

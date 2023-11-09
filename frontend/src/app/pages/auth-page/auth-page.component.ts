@@ -1,4 +1,5 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, ViewChild} from "@angular/core";
+import {TranslateModule} from "@ngx-translate/core";
 import {MatTabGroup, MatTabsModule} from "@angular/material/tabs";
 
 import {RegisterComponent} from "@organisms/register/register.component";
@@ -11,7 +12,8 @@ import {LoginComponent} from "@organisms/login/login.component";
   imports: [
     MatTabsModule,
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    TranslateModule
   ],
   styleUrls: ['./auth-page.component.scss']
 })

@@ -1,22 +1,24 @@
 <form class="form" [formGroup]="loginForm" (submit)="onSubmit()">
 
   <mat-form-field>
-    <mat-label>hasło</mat-label>
+    <mat-label>{{ 'Password' | translate }}</mat-label>
     <input type="password" matInput formControlName="password"/>
     <mat-error *ngIf="password.hasError('required') && password.dirty">
-      Hasło jest wymagane
+      {{ 'RequiredPassword' | translate }}
     </mat-error>
   </mat-form-field>
 
   <app-input></app-input>
 
-  <a routerLink="/reset-password" class="link">zresetuj hasło</a>
+  <a routerLink="/reset-password" class="link">{{ 'ResetPassword' | translate }}</a>
   <div class="box-message">
     <p *ngIf="showMessage" [ngClass]="{'error': isError, 'success': !isError}">
       {{ responseMessage }}
     </p>
   </div>
-  <app-button-submit [isLoading]="isLoading" [isValid]="loginForm.valid" [value]="'Zaloguj się'"></app-button-submit>
+  <app-button-submit [isLoading]="isLoading" [isValid]="loginForm.valid">
+    {{ 'LoginButton' | translate }}
+  </app-button-submit>
 </form>
 
 
