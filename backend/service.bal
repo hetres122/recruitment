@@ -18,6 +18,7 @@ service /backend on new http:Listener(9090) {
     resource function get users() returns UserModel[]|error {
         return users.toArray();
     }
+
     resource function get users/[string id]() returns UserModel|UserNotFoundModel|error {
         UserModel? user = users[id];
         if user is () {
@@ -28,7 +29,8 @@ service /backend on new http:Listener(9090) {
         }
         return user;
     }
-    resource function post users(NewUserModel newUser) returns http:Created|BadRequestModel|error {
+
+    resource function post users(NewUserModel newUser) returns CreateUserResponseModel|BadRequestModel|error {
         if (newUser.password.length() < 8) {
             BadRequestModel badRequest = {
                 body: {message: string `Password is too short; it must be at least 8 characters long`}
@@ -43,11 +45,14 @@ service /backend on new http:Listener(9090) {
             return badRequest;
         }
         users.add({id: uuid:createType1AsString(), ...newUser});
-        return http:CREATED;
+
+        CreateUserResponseModel createUserResponse = {
+            body: {email: newUser.email}
+        };
+        return createUserResponse;
     }
 
-    resource function post users/resetPassword(ResetPasswordModel resetPassword) returns http:Accepted|BadRequestModel|error {
-
+    resource function post users/resetPassword(ResetPasswordModel resetPassword) returns ResetPasswordResponseModel|BadRequestModel|error {
         boolean emailFound = false;
 
         foreach UserModel user in users {
@@ -58,7 +63,10 @@ service /backend on new http:Listener(9090) {
         }
 
         if (emailFound) {
-            return http:ACCEPTED;
+            ResetPasswordResponseModel resetPasswordResponse = {
+                body: {email: resetPassword.email}
+            };
+            return resetPasswordResponse;
         } else {
             BadRequestModel badRequest = {
                 body: {message: string `No user with such email found`}
@@ -79,7 +87,7 @@ service /backend on new http:Listener(9090) {
         }
         if (userFound) {
             AuthResponseModel authResponse = {
-                body: {user: newUser}
+                body: {email: newUser.email}
             };
             return authResponse;
         } else {

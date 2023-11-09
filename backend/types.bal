@@ -11,7 +11,7 @@ public type ErrorDetailsBody record {
 };
 
 public type UserDetailsBody record {
-    NewUserModel user;
+    string email;
 };
 
 public type UserNotFoundModel record {|
@@ -40,5 +40,15 @@ public type ResetPasswordModel record {|
 
 public type AuthResponseModel record {|
     *http:Ok;
+    UserDetailsBody body;
+|};
+
+public type ResetPasswordResponseModel record {|
+    *http:Created;
+    UserDetailsBody body;
+|};
+
+public type CreateUserResponseModel record {|
+    *http:Created;
     UserDetailsBody body;
 |};
