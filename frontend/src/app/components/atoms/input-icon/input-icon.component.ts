@@ -1,20 +1,21 @@
 import {Component, Input} from "@angular/core";
+import {CommonModule} from "@angular/common";
+
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatIconModule} from "@angular/material/icon";
-import {NgIf} from "@angular/common";
 
 @Component({
   standalone: true,
   selector: "app-input-icon",
   templateUrl: "./input-icon.component.html",
   imports: [
+    CommonModule,
     MatFormFieldModule,
-    MatIconModule,
-    NgIf
+    MatIconModule
   ],
   styleUrls: ["./input-icon.component.scss"]
 })
 export class InputIconComponent {
-  @Input({ required: true })  public isInputValid!: boolean;
-  @Input({ required: true })  public isTouched!: boolean;
+  @Input({ required: true }) public isInputValid!: boolean;
+  @Input({ required: true }) public isTouched!: boolean;
 }

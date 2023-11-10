@@ -16,6 +16,6 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
   styleUrls: ["./button-submit.component.scss"]
 })
 export class ButtonSubmitComponent {
-  @Input() public isValid!: boolean;
-  @Input() public isLoading!: boolean;
+  @Input({ required: false }) public isValid!: boolean;
+  @Input({ required: true }) public isLoading!: boolean;
 }

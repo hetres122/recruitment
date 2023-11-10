@@ -12,12 +12,19 @@ import {MatInputModule} from "@angular/material/input";
 
 import {TranslateModule} from "@ngx-translate/core";
 
-import {InputIconComponent} from "@components/atoms/input-icon/input-icon.component";
+import {InputIconComponent} from "@components/atoms";
 
 @Component({
   selector: "app-email-form",
   standalone: true,
-  imports: [CommonModule, InputIconComponent, MatFormFieldModule, MatInputModule, ReactiveFormsModule, TranslateModule],
+  imports: [
+    CommonModule,
+    InputIconComponent,
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    TranslateModule
+  ],
   templateUrl: "./email-form.component.html",
   styleUrls: ["./email-form.component.scss"]
 })

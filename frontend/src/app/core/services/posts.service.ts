@@ -3,34 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 
 import {environment} from "@environments/environment";
-
-interface BaseAuthRequest {
-  email: string;
-}
-
-interface RegisterRequest extends BaseAuthRequest {
-  password: string;
-}
-
-interface ResetPasswordRequest extends BaseAuthRequest {
-}
-
-interface LoginRequest extends BaseAuthRequest {
-  password: string;
-}
-
-interface ApiBaseResponse {
-  email: string;
-}
-
-interface ApiSuccessResponse extends ApiBaseResponse {
-}
-
-interface ApiErrorResponse extends ApiBaseResponse {
-  message: string
-}
-
-type ApiResponse = ApiSuccessResponse | ApiErrorResponse;
+import {ApiResponse, LoginRequest, RegisterRequest, ResetPasswordRequest} from "@models/auth-interfaces";
 
 @Injectable({
   providedIn: "root",

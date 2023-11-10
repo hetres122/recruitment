@@ -18,5 +18,10 @@
   "LabelEmail": "Login/Email",
   "Placeholder": "test@test.com",
   "InvalidEmail": "Nieprawidłowy adres email",
-  "RequiredEmail": "Email jest wymagany"
+  "RequiredEmail": "Email jest wymagany",
+  "messageAlreadySent": "Wiadomość została wysłana",
+  "messageErrorEmailExist": "Podany email nie istnieje",
+  "messageErrorSend": "Wystąpił błąd rejestracji",
+  "messageSuccessLogin": "Zostałeś zalogowany: ",
+  "messageErrorLogin": "Podano nieprawidłowe dane logowania"
 }

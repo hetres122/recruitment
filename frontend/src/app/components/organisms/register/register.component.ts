@@ -7,15 +7,16 @@ import {
   ReactiveFormsModule,
   Validators,
 } from "@angular/forms";
-import {TranslateModule} from "@ngx-translate/core";
+import {TranslateModule, TranslateService} from "@ngx-translate/core";
 
 import {MatButtonModule} from "@angular/material/button";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
-import {PasswordValidationOptionalErrors} from "@interface/password-validation";
-import {ButtonSubmitComponent, EmailFormComponent, InputIconComponent} from "@components/atoms";
+import {PasswordValidationOptionalErrors} from "@models/password-validation";
+import {ButtonSubmitComponent, InputIconComponent} from "@components/atoms";
+import {EmailFormComponent} from "@components/molecules"
 import {PostsService} from "@core/services";
 
 
@@ -38,7 +39,7 @@ import {PostsService} from "@core/services";
   styleUrls: ["./register.component.scss"],
 })
 export class RegisterComponent implements OnInit {
-  @Output() onChangeToDefaultTab = new EventEmitter<null>();
+  @Output() onChangeToDefaultTab = new EventEmitter<void>();
 
   public registerForm!: FormGroup;
   public textMessage: string = "";
@@ -47,6 +48,8 @@ export class RegisterComponent implements OnInit {
 
   private formBuilder = inject(FormBuilder);
   private postService = inject(PostsService);
+  private translate = inject(TranslateService);
+
 
   get email(): FormControl {
     return this.registerForm.get("emailGroup.email") as FormControl;
@@ -77,7 +80,9 @@ export class RegisterComponent implements OnInit {
       error: () => {
         this.isLoading = false;
         this.isError = true;
-        this.textMessage = "Błąd rejestracji";
+        this.translate.get("messageErrorSend").subscribe((translation: string) => {
+          this.textMessage = translation;
+        });
       },
       complete: () => {
         this.resetRegisterForm();

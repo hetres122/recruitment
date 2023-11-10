@@ -1,6 +1,6 @@
 import {Component, inject, OnInit,} from "@angular/core";
 import {RouterLink} from "@angular/router";
-import { CommonModule } from "@angular/common";
+import {CommonModule} from "@angular/common";
 import {
   FormBuilder,
   FormControl,
@@ -8,14 +8,15 @@ import {
   ReactiveFormsModule,
   Validators,
 } from "@angular/forms";
-import {TranslateModule} from "@ngx-translate/core";
+import {TranslateModule, TranslateService} from "@ngx-translate/core";
 
 import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
-import {ButtonSubmitComponent, EmailFormComponent} from "@components/atoms";
+import {ButtonSubmitComponent} from "@components/atoms";
+import {EmailFormComponent} from "@components/molecules"
 import {PostsService} from "@core/services";
 
 
@@ -35,8 +36,7 @@ import {PostsService} from "@core/services";
     ButtonSubmitComponent,
     TranslateModule,
   ],
-  styleUrls: ["./login.component.scss"],
-
+  styleUrls: ["./login.component.scss"]
 })
 export class LoginComponent implements OnInit {
   public loginForm!: FormGroup;
@@ -47,6 +47,8 @@ export class LoginComponent implements OnInit {
 
   private formBuilder = inject(FormBuilder);
   private postService = inject(PostsService);
+  private translate = inject(TranslateService);
+
 
   ngOnInit(): void {
     this.setLoginFormControls();
@@ -60,22 +62,25 @@ export class LoginComponent implements OnInit {
     return this.loginForm.get("emailGroup.email") as FormControl;
   }
 
-  public onSubmit():void {
+  public onSubmit(): void {
     const email = this.email.value.trim();
     const password = this.password.value.trim();
     this.isLoading = true;
 
-
     this.postService.login({email, password}).subscribe({
       next: (response) => {
         this.isError = false;
-        this.responseMessage = `Zostałeś zalogowany: ${response.email}`;
+        this.translate.get("messageSuccessLogin").subscribe((translation: string) => {
+          this.responseMessage = `${translation} ${response.email}`;
+        });
       },
       error: () => {
         this.isError = true;
         this.showMessage = true;
         this.isLoading = false;
-        this.responseMessage = "Błędny email lub hasło";
+        this.translate.get("messageErrorLogin").subscribe((translation: string) => {
+          this.responseMessage = translation;
+        });
       },
       complete: () => {
         this.resetLoginForm();

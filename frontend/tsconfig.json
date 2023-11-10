@@ -8,7 +8,7 @@
       "@pages/*": ["src/app/pages/*"],
       "@components/*": ["src/app/components/*"],
       "@environments/*": ["src/environments/*"],
-      "@interface/*": ["src/app/interface/*"],
+      "@models/*": ["src/app/models/*"],
 
     },
     "outDir": "./dist/out-tsc",
