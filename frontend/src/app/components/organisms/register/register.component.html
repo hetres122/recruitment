@@ -1,7 +1,7 @@
 <form class="form" [formGroup]="registerForm" (submit)="onSubmit()">
   <p *ngIf="isError" class="error">{{ textMessage }}</p>
 
-  <app-input></app-input>
+  <app-email-form></app-email-form>
 
   <mat-form-field>
     <mat-label>{{ 'Password' | translate }}</mat-label>

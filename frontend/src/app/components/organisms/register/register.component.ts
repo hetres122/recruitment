@@ -15,7 +15,7 @@ import {MatInputModule} from "@angular/material/input";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 import {PasswordValidationOptionalErrors} from "@interface/password-validation";
-import {ButtonSubmitComponent, InputComponent, InputIconComponent} from "@components/atoms";
+import {ButtonSubmitComponent, EmailFormComponent, InputIconComponent} from "@components/atoms";
 import {PostsService} from "@core/services";
 
 
@@ -31,7 +31,7 @@ import {PostsService} from "@core/services";
     CommonModule,
     InputIconComponent,
     MatProgressSpinnerModule,
-    InputComponent,
+    EmailFormComponent,
     ButtonSubmitComponent,
     TranslateModule,
   ],

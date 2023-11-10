@@ -15,7 +15,7 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
-import {ButtonSubmitComponent, InputComponent} from "@components/atoms";
+import {ButtonSubmitComponent, EmailFormComponent} from "@components/atoms";
 import {PostsService} from "@core/services";
 
 
@@ -30,7 +30,7 @@ import {PostsService} from "@core/services";
     RouterLink,
     CommonModule,
     MatIconModule,
-    InputComponent,
+    EmailFormComponent,
     MatProgressSpinnerModule,
     ButtonSubmitComponent,
     TranslateModule,
