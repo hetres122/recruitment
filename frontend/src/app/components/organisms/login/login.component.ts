@@ -8,16 +8,17 @@ import {
   ReactiveFormsModule,
   Validators,
 } from "@angular/forms";
+import {Observable} from "rxjs";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 
 import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
-import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {ButtonSubmitComponent} from "@components/atoms";
 import {EmailFormComponent} from "@components/molecules"
-import {PostsService} from "@core/services";
+import {UserAuthService} from "@core/services";
 
 
 @Component({
@@ -41,14 +42,13 @@ import {PostsService} from "@core/services";
 export class LoginComponent implements OnInit {
   public loginForm!: FormGroup;
   public showMessage: boolean = false;
-  public responseMessage: string = "";
+  public responseMessage!: Observable<string>;
   public isError: boolean = false;
   public isLoading: boolean = false;
 
   private formBuilder = inject(FormBuilder);
-  private postService = inject(PostsService);
+  private userAuthService = inject(UserAuthService);
   private translate = inject(TranslateService);
-
 
   ngOnInit(): void {
     this.setLoginFormControls();
@@ -67,20 +67,16 @@ export class LoginComponent implements OnInit {
     const password = this.password.value.trim();
     this.isLoading = true;
 
-    this.postService.login({email, password}).subscribe({
-      next: (response) => {
+    this.userAuthService.login({email, password}).subscribe({
+      next: () => {
         this.isError = false;
-        this.translate.get("messageSuccessLogin").subscribe((translation: string) => {
-          this.responseMessage = `${translation} ${response.email}`;
-        });
+        this.responseMessage = this.translate.get("messageSuccessLogin");
       },
       error: () => {
         this.isError = true;
         this.showMessage = true;
         this.isLoading = false;
-        this.translate.get("messageErrorLogin").subscribe((translation: string) => {
-          this.responseMessage = translation;
-        });
+        this.responseMessage = this.translate.get("messageErrorLogin");
       },
       complete: () => {
         this.resetLoginForm();

@@ -1,1 +1,1 @@
-export * from "./posts.service"
+export * from "./user-auth.service"

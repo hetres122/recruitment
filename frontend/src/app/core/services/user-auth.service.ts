@@ -8,23 +8,23 @@ import {ApiResponse, LoginRequest, RegisterRequest, ResetPasswordRequest} from "
 @Injectable({
   providedIn: "root",
 })
-export class PostsService {
+export class UserAuthService {
   private http = inject(HttpClient);
   private readonly API_URL: URL = new URL(environment.apiUrl);
 
-  login(loginRequest: LoginRequest): Observable<ApiResponse> {
+  public login(loginRequest: LoginRequest): Observable<ApiResponse> {
     const url = `${this.API_URL}auth/login`;
 
     return this.http.post<ApiResponse>(url, loginRequest);
   }
 
-  register(registerRequest: RegisterRequest): Observable<ApiResponse> {
+  public register(registerRequest: RegisterRequest): Observable<ApiResponse> {
     const url = `${this.API_URL}users`;
 
     return this.http.post<ApiResponse>(url, registerRequest);
   }
 
-  resetPassword(resetPasswordRequest: ResetPasswordRequest): Observable<ApiResponse> {
+  public resetPassword(resetPasswordRequest: ResetPasswordRequest): Observable<ApiResponse> {
     const url = `${this.API_URL}users/resetPassword`
 
     return this.http.post<ApiResponse>(url, resetPasswordRequest);

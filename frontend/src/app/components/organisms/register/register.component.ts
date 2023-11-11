@@ -7,6 +7,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from "@angular/forms";
+import {Observable} from "rxjs";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 
 import {MatButtonModule} from "@angular/material/button";
@@ -17,7 +18,7 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {PasswordValidationOptionalErrors} from "@models/password-validation";
 import {ButtonSubmitComponent, InputIconComponent} from "@components/atoms";
 import {EmailFormComponent} from "@components/molecules"
-import {PostsService} from "@core/services";
+import {UserAuthService} from "@core/services";
 
 
 @Component({
@@ -42,12 +43,12 @@ export class RegisterComponent implements OnInit {
   @Output() onChangeToDefaultTab = new EventEmitter<void>();
 
   public registerForm!: FormGroup;
-  public textMessage: string = "";
+  public errorMessage!: Observable<string>;
   public isError: boolean = false;
   public isLoading: boolean = false;
 
   private formBuilder = inject(FormBuilder);
-  private postService = inject(PostsService);
+  private userAuthService = inject(UserAuthService);
   private translate = inject(TranslateService);
 
 
@@ -72,7 +73,7 @@ export class RegisterComponent implements OnInit {
     const password = this.password.value.trim();
 
     this.isLoading = true;
-    this.postService.register({email, password}).subscribe({
+    this.userAuthService.register({email, password}).subscribe({
       next: () => {
         this.isError = false;
         this.onChangeToDefaultTab.emit();
@@ -80,9 +81,7 @@ export class RegisterComponent implements OnInit {
       error: () => {
         this.isLoading = false;
         this.isError = true;
-        this.translate.get("messageErrorSend").subscribe((translation: string) => {
-          this.textMessage = translation;
-        });
+        this.errorMessage = this.translate.get("messageErrorSend");
       },
       complete: () => {
         this.resetRegisterForm();

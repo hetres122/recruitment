@@ -22,6 +22,6 @@
   "messageAlreadySent": "Wiadomość została wysłana",
   "messageErrorEmailExist": "Podany email nie istnieje",
   "messageErrorSend": "Wystąpił błąd rejestracji",
-  "messageSuccessLogin": "Zostałeś zalogowany: ",
+  "messageSuccessLogin": "Zostałeś zalogowany!",
   "messageErrorLogin": "Podano nieprawidłowe dane logowania"
 }

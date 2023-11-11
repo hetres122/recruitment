@@ -10,6 +10,8 @@ import {CommonModule} from "@angular/common";
 import {RouterLink} from "@angular/router";
 import {TranslateModule} from "@ngx-translate/core";
 import {TranslateService} from '@ngx-translate/core';
+import {Observable} from "rxjs";
+
 
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
@@ -18,7 +20,7 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 import {ButtonSubmitComponent, InputIconComponent} from "@components/atoms";
 import {EmailFormComponent} from "@components/molecules"
-import {PostsService} from "@core/services";
+import {UserAuthService} from "@core/services";
 
 @Component({
   standalone: true,
@@ -42,12 +44,12 @@ import {PostsService} from "@core/services";
 export class PasswordResetPageComponent implements OnInit {
   public resetForm!: FormGroup;
   public showMessage: boolean = false;
-  public responseMessage: string = "";
+  public responseMessage!: Observable<string>;
   public isError: boolean = false;
   public isLoading: boolean = false;
 
   private formBuilder = inject(FormBuilder);
-  private postService = inject(PostsService);
+  private userAuthService = inject(UserAuthService);
   private translate = inject(TranslateService);
 
   get email(): FormControl {
@@ -62,11 +64,9 @@ export class PasswordResetPageComponent implements OnInit {
     const email = this.email.value.trim();
     this.isLoading = true;
 
-    this.postService.resetPassword({email}).subscribe({
+    this.userAuthService.resetPassword({email}).subscribe({
       next: () => {
-        this.translate.get("messageAlreadySent").subscribe((translation: string) => {
-          this.responseMessage = translation;
-        });
+        this.responseMessage = this.translate.get("messageAlreadySent");
         this.isError = false;
         this.resetForm.reset();
         this.email.setErrors(null);
@@ -75,9 +75,7 @@ export class PasswordResetPageComponent implements OnInit {
         this.isError = true;
         this.isLoading = false;
         this.showMessage = true
-        this.translate.get("messageErrorEmailExist").subscribe((translation: string) => {
-          this.responseMessage = translation;
-        });
+        this.responseMessage = this.translate.get("messageErrorEmailExist");
       },
       complete: () => {
         this.showMessage = true;

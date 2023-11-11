@@ -13,7 +13,7 @@
   <a routerLink="/reset-password" class="link">{{ 'ResetPassword' | translate }}</a>
   <div class="box-message">
     <p *ngIf="showMessage" [ngClass]="{'error': isError, 'success': !isError}">
-      {{ responseMessage }}
+      {{ responseMessage | async }}
     </p>
   </div>
   <app-button-submit [isLoading]="isLoading" [isValid]="loginForm.valid">

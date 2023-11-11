@@ -1,5 +1,5 @@
 <form class="form" [formGroup]="registerForm" (submit)="onSubmit()">
-  <p *ngIf="isError" class="error">{{ textMessage }}</p>
+  <p *ngIf="isError" class="error">{{ errorMessage | async }}</p>
 
   <app-email-form></app-email-form>
 
